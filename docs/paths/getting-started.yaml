@@ -5,32 +5,57 @@ get:
     ## Welcome to XecoFlow
     XecoFlow is a high-performance API gateway designed to simplify M-Pesa integrations for Kenyan developers.
     
-    ### 1. Core Terminologies
-    * **Xeco Sentinel:** Our security layer that handles OAuth 2.0 authentication.
+    ### 🛡️ 1. Xeco Sentinel Security (Fixing Invalid Signatures)
+    To ensure request integrity, every API call must be signed using **HMAC-SHA256**. This prevents the "Request integrity check failed" error.
+    
+    #### **Generating the Signature (Node.js)**
+    ```javascript
+    const crypto = require('crypto');
+    
+    // Use your Merchant Secret Key from the Xeco Dashboard
+    const XECO_SECRET = 'your_merchant_secret_key'; 
+    const payload = {
+        amount: "10",
+        phoneNumber: "254712345678",
+        accountReference: "XecoPay_01"
+    };
+
+    const signature = crypto
+        .createHmac('sha256', XECO_SECRET)
+        .update(JSON.stringify(payload))
+        .digest('hex');
+
+    console.log('X-Xeco-Signature:', signature);
+    ```
+
+    ### 2. Core Terminologies
+    * **Xeco Sentinel:** Our security layer that handles HMAC signatures and OAuth 2.0 authentication.
     * **STK Push (Lipa Na M-Pesa):** Instant payment prompts sent to a user's phone.
     * **Callback URL:** The "Webhook" on your server where XecoFlow sends payment results.
     
-    ### 2. Testing on Localhost
+    ### 3. Testing on Localhost
     Since M-Pesa needs to "talk" to your computer, you must use a tunneling service.
     * **Ngrok:** `ngrok http 5000`
     * **LocalTunnel:** `lt --port 5000`
     
-    ### 3. Security Credentials
-    To generate your `SecurityCredential` for B2C or Reversals:
-    1.  Get the **Xeco Public Key** (provided in your dashboard).
-    2.  Encrypt your **Initiator Password** using the RSA algorithm with PKCS#1.5 padding.
-    3.  Base64 encode the result.
+    ### 4. Security Credentials (B2C & Reversals)
+    To generate your `SecurityCredential`:
+    1. Get the **Xeco Public Key** from your dashboard.
+    2. Encrypt your **Initiator Password** using the RSA algorithm with PKCS#1.5 padding.
+    3. Base64 encode the result.
     
-    ### 4. IP Whitelisting
-    Ensure your server accepts traffic from these XecoFlow Gateway IPs:
+    ### 5. IP Whitelisting
+    Ensure your server accepts traffic from these XecoFlow/Safaricom Gateway IPs:
     * `196.201.214.200`
     * `196.201.214.206`
-    * *(Include other Safaricom IPs here)*
+    * `196.201.213.114`
+    * `196.201.214.207`
+    * `196.201.214.208`
     
-    ### 5. Asynchronous Logic
-    XecoFlow is **Asynchronous**. 
+    ### 6. Asynchronous Logic
+    XecoFlow operates asynchronously to ensure high performance. 
     * **Step 1:** You send a request to XecoFlow.
-    * **Step 2:** We send back an `CheckoutID` immediately.
+    * **Step 2:** We send back a `CheckoutID` immediately.
     * **Step 3:** Once the user enters their PIN, we POST the result to your **CallbackURL**.
   responses:
     '200':

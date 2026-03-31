@@ -10,10 +10,8 @@
   
   <style>
     :root {
-      --xeco-blue: #0ea5e9;
-      --xeco-dark: #0f172a;
       --xeco-green: #10b981;
-      --text-muted: #6b7280;
+      --xeco-dark: #0f172a;
       --border-light: #e5e7eb;
     }
 
@@ -22,136 +20,72 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #ffffff;
       color: var(--xeco-dark);
-      scroll-behavior: smooth;
     }
 
-    /* Navigation */
     .nav {
       padding: 15px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: white;
       border-bottom: 1px solid var(--border-light);
-      position: sticky;
-      top: 0;
-      z-index: 50;
     }
 
-    .logo { font-weight: 800; font-size: 1.4rem; color: var(--xeco-dark); letter-spacing: -1px; }
+    .logo { font-weight: 800; font-size: 1.4rem; letter-spacing: -1px; }
     .logo span { color: var(--xeco-green); }
 
-    /* Hero Section */
     .hero {
-      padding: 60px 20px;
+      padding: 80px 20px;
       text-align: center;
       background: #f9fafb;
     }
 
-    .hero h1 { font-size: 3.5rem; margin-bottom: 10px; font-weight: 800; }
+    .hero h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 800; }
     .hero h1 span { color: var(--xeco-green); }
-    .hero p { color: var(--xeco-dark); font-size: 1.25rem; margin-bottom: 40px; }
+    .hero p { color: #4b5563; font-size: 1.2rem; margin-bottom: 40px; }
 
-    /* Search & Filter Bar */
-    .search-box {
-      max-width: 900px;
-      margin: 0 auto 30px auto;
-      position: relative;
-    }
-
-    .search-box input {
-      width: 100%;
-      padding: 18px 25px;
-      border-radius: 8px;
-      border: 1px solid var(--border-light);
-      font-size: 1rem;
-      outline: none;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-    }
-
-    .filter-tabs {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 50px;
-    }
-
-    .tab {
-      padding: 12px 35px;
-      border-radius: 6px;
-      background: #f3f4f6;
-      cursor: pointer;
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: #374151;
-      transition: 0.3s;
-    }
-
-    .tab.active {
-      background: #008000; /* Daraja Green */
-      color: white;
-    }
-
-    /* API Grid */
-    .container { max-width: 1200px; margin: 0 auto 100px auto; padding: 0 20px; }
+    .container { max-width: 800px; margin: 0 auto 100px auto; padding: 0 20px; }
     
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 25px;
-    }
-
     .card {
       background: white;
-      padding: 30px;
-      border-radius: 12px;
+      padding: 40px;
+      border-radius: 16px;
       border: 1px solid var(--border-light);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: all 0.3s ease;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      position: relative;
+      text-align: center;
     }
 
     .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+      border-color: var(--xeco-green);
     }
 
     .icon-circle {
-      width: 65px;
-      height: 65px;
+      width: 80px;
+      height: 80px;
       border-radius: 50%;
-      border: 1px solid #e0f2fe;
+      border: 2px solid #ecfdf5;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
-      background: #fff;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      margin: 0 auto 24px auto;
+      font-size: 2rem;
     }
 
-    .card h3 { margin: 0; font-size: 1.5rem; font-weight: 700; color: #111827; }
-    .author { font-size: 0.85rem; color: var(--text-muted); margin: 5px 0 25px 0; }
-    .card p.desc { color: #4b5563; line-height: 1.6; font-size: 1rem; margin-bottom: 30px; flex-grow: 1; }
-
-    /* Badge Styles */
-    .badge-row { margin-top: auto; }
     .badge {
-      padding: 6px 20px;
+      padding: 6px 16px;
       border-radius: 20px;
       font-size: 0.8rem;
-      font-weight: 600;
-      display: inline-block;
+      font-weight: 700;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #6ee7b7;
     }
-    .badge-experience { color: #9a3412; background: #fff7ed; border: 1px solid #fdba74; }
-    .badge-security { color: #065f46; background: #ecfdf5; border: 1px solid #6ee7b7; }
-    .badge-payments { color: #1e40af; background: #eff6ff; border: 1px solid #93c5fd; }
 
-    /* Docs View Modal */
-    #docs-view { display: none; background: white; min-height: 100vh; position: absolute; top: 0; left: 0; width: 100%; z-index: 100; }
-    .back-nav { padding: 15px 40px; background: #fff; border-bottom: 1px solid #eee; display: flex; align-items: center; }
-    .back-btn { padding: 10px 20px; cursor: pointer; border: none; background: #111827; color: white; border-radius: 6px; font-weight: 600; }
+    #docs-view { display: none; background: white; min-height: 100vh; }
+    .back-nav { padding: 15px 40px; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 20px; }
+    .back-btn { padding: 8px 16px; cursor: pointer; border: none; background: #111827; color: white; border-radius: 6px; font-weight: 600; }
   </style>
 </head>
 <body>
@@ -159,58 +93,28 @@
   <div id="main-portal">
     <nav class="nav">
       <div class="logo">XECO<span>FLOW</span></div>
-      <div class="badge-row"><span class="badge badge-security">v1.0.0 Stable</span></div>
+      <span class="badge">v1.0.0 Stable</span>
     </nav>
 
     <section class="hero">
-      <h1>Discover <span>APIs</span></h1>
-      <p>Explore our wide range of APIs by category</p>
-      
-      <div class="search-box">
-        <input type="text" id="apiSearch" placeholder="Search for APIs...">
-      </div>
-
-      <div class="filter-tabs">
-        <div class="tab active" onclick="filterCards('all', this)">All</div>
-        <div class="tab" onclick="filterCards('Security', this)">Security</div>
-        <div class="tab" onclick="filterCards('Payments', this)">Payments</div>
-        <div class="tab" onclick="filterCards('Guides', this)">Experience</div>
-      </div>
+      <h1>Documentation <span>Hub</span></h1>
+      <p>Configure your environment and master the Xeco Sentinel security protocol.</p>
     </section>
 
     <div class="container">
-      <div class="grid" id="apiGrid">
-        <div class="card" data-category="Guides" onclick="openDocs('Guides')">
-          <div class="icon-circle">🧩</div>
-          <h3>Getting Started</h3>
-          <p class="author">By XecoFlow</p>
-          <p class="desc">Learn how to set up and integrate XecoFlow APIs into your application and start accepting payments.</p>
-          <div class="badge-row"><span class="badge badge-experience">Experience</span></div>
-        </div>
-
-        <div class="card" data-category="Security" onclick="openDocs('Security')">
-          <div class="icon-circle">🛡️</div>
-          <h3>Authorization</h3>
-          <p class="author">By XecoFlow</p>
-          <p class="desc">Gives you a time bound access token to call allowed XecoFlow APIs securely.</p>
-          <div class="badge-row"><span class="badge badge-security">Security</span></div>
-        </div>
-
-        <div class="card" data-category="Payments" onclick="openDocs('Payments')">
-          <div class="icon-circle">📲</div>
-          <h3>Lipa Na M-Pesa</h3>
-          <p class="author">By XecoFlow</p>
-          <p class="desc">Trigger automated STK Push prompts directly to customer handsets for faster checkout.</p>
-          <div class="badge-row"><span class="badge badge-payments">Payments</span></div>
-        </div>
+      <div class="card" onclick="openDocs('Guides')">
+        <div class="icon-circle">📖</div>
+        <h2 style="font-size: 1.8rem; margin-bottom: 10px;">Full Integration Guide</h2>
+        <p style="color: #6b7280; margin-bottom: 30px;">Includes Signature Generation (HMAC-SHA256), IP Whitelisting, and STK Push implementation.</p>
+        <span class="badge">Start Integrating</span>
       </div>
     </div>
   </div>
 
   <div id="docs-view">
     <div class="back-nav">
-      <button class="back-btn" onclick="closeDocs()">← Back to Portal</button>
-      <span style="margin-left: 20px; font-weight: 700; color: #111827;">XecoFlow Documentation</span>
+      <button class="back-btn" onclick="closeDocs()">← Back</button>
+      <span style="font-weight: 700;">XecoFlow Technical Manual</span>
     </div>
     <div id="swagger-ui"></div>
   </div>
@@ -218,29 +122,6 @@
   <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
   <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-standalone-preset.js"></script>
   <script>
-    // Search Functionality
-    document.getElementById('apiSearch').addEventListener('input', (e) => {
-      const term = e.target.value.toLowerCase();
-      document.querySelectorAll('.card').forEach(card => {
-        const matches = card.innerText.toLowerCase().includes(term);
-        card.style.display = matches ? 'flex' : 'none';
-      });
-    });
-
-    // Category Filter Functionality
-    function filterCards(category, element) {
-      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-      element.classList.add('active');
-
-      document.querySelectorAll('.card').forEach(card => {
-        if (category === 'all' || card.getAttribute('data-category') === category) {
-          card.style.display = 'flex';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-
     function openDocs(filterTag) {
       document.getElementById('main-portal').style.display = 'none';
       document.getElementById('docs-view').style.display = 'block';
