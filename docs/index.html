@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>XecoFlow | API Hub</title>
+  <title>XecoFlow | Developer Portal</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
@@ -12,6 +12,7 @@
     :root {
       --xeco-blue: #0ea5e9;
       --xeco-dark: #0f172a;
+      --xeco-green: #10b981;
       --card-bg: #ffffff;
       --text-muted: #64748b;
     }
@@ -21,172 +22,231 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
       background-color: #f8fafc;
       color: var(--xeco-dark);
+      scroll-behavior: smooth;
     }
 
+    /* Modern Navigation */
     .nav {
-      padding: 20px 40px;
+      padding: 15px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       background: white;
       border-bottom: 1px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
     }
 
-    .logo { font-weight: 800; font-size: 1.5rem; color: var(--xeco-dark); letter-spacing: -1px; }
+    .logo { font-weight: 800; font-size: 1.4rem; color: var(--xeco-dark); letter-spacing: -1px; }
     .logo span { color: var(--xeco-blue); }
 
+    /* Hero Section */
     .hero {
-      padding: 80px 20px;
+      padding: 60px 20px;
       text-align: center;
-      background: radial-gradient(circle at top right, #e0f2fe, transparent);
+      background: radial-gradient(circle at top right, #e0f2fe, #f8fafc);
     }
 
-    .hero h1 { font-size: 3.5rem; margin-bottom: 15px; letter-spacing: -2px; }
-    .hero p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto 40px auto; }
+    .hero h1 { font-size: 3rem; margin-bottom: 10px; letter-spacing: -2px; }
+    .hero p { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px auto; }
 
+    /* Search & Filter Bar */
     .search-box {
-      max-width: 600px;
-      margin: 0 auto;
-      position: relative;
+      max-width: 700px;
+      margin: 0 auto 40px auto;
     }
 
     .search-box input {
       width: 100%;
-      padding: 18px 25px;
-      border-radius: 16px;
+      padding: 16px 24px;
+      border-radius: 12px;
       border: 1px solid #e2e8f0;
-      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
       font-size: 1rem;
       outline: none;
-      transition: 0.3s;
     }
 
-    .search-box input:focus { border-color: var(--xeco-blue); box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1); }
+    .filter-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+    }
 
-    .container { max-width: 1200px; margin: -40px auto 100px auto; padding: 0 20px; }
+    .tab {
+      padding: 8px 20px;
+      border-radius: 99px;
+      background: white;
+      border: 1px solid #e2e8f0;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: 0.2s;
+    }
+
+    .tab.active, .tab:hover {
+      background: var(--xeco-blue);
+      color: white;
+      border-color: var(--xeco-blue);
+    }
+
+    /* API Grid */
+    .container { max-width: 1100px; margin: 0 auto 100px auto; padding: 0 20px; }
     
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
     }
 
     .card {
       background: white;
-      padding: 40px;
-      border-radius: 24px;
+      padding: 30px;
+      border-radius: 20px;
       border: 1px solid #f1f5f9;
-      transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s ease;
       cursor: pointer;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+      display: flex;
+      flex-direction: column;
     }
 
     .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px -5px rgba(0,0,0,0.08);
       border-color: var(--xeco-blue);
     }
 
     .icon-circle {
-      width: 60px;
-      height: 60px;
+      width: 48px;
+      height: 48px;
       background: #f0f9ff;
-      border-radius: 18px;
+      border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: 24px;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
       color: var(--xeco-blue);
     }
 
-    .card h3 { margin: 0 0 12px 0; font-size: 1.25rem; font-weight: 700; }
-    .card p { color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; margin-bottom: 20px; }
+    .card h3 { margin: 0 0 10px 0; font-size: 1.15rem; font-weight: 700; }
+    .card p { color: var(--text-muted); line-height: 1.5; font-size: 0.9rem; flex-grow: 1; margin-bottom: 20px; }
 
     .tag-row { display: flex; gap: 8px; }
     .chip { 
       padding: 4px 12px; 
       border-radius: 99px; 
-      font-size: 0.7rem; 
+      font-size: 0.65rem; 
       font-weight: 700; 
       text-transform: uppercase; 
       background: #f1f5f9;
       color: #475569;
     }
 
-    #docs-view { display: none; background: white; min-height: 100vh; position: relative; z-index: 100; }
-    .back-btn { padding: 10px 20px; margin: 20px; cursor: pointer; border: none; background: var(--xeco-dark); color: white; border-radius: 8px; }
+    /* Docs View Modal */
+    #docs-view { display: none; background: white; min-height: 100vh; position: absolute; top: 0; left: 0; width: 100%; z-index: 100; }
+    .back-nav { padding: 15px 40px; background: #fff; border-bottom: 1px solid #eee; display: flex; align-items: center; }
+    .back-btn { padding: 8px 16px; cursor: pointer; border: none; background: var(--xeco-dark); color: white; border-radius: 6px; font-weight: 600; }
   </style>
 </head>
 <body>
 
   <div id="main-portal">
     <nav class="nav">
-      <div class="logo">XECO<span>FLOW APIs 1.0</span></div>
-      <div style="font-size: 0.9rem; color: var(--text-muted);">v1.0 Docs</div>
+      <div class="logo">XECO<span>FLOW</span></div>
+      <div class="tag-row"><span class="chip">v1.0.0</span></div>
     </nav>
 
     <section class="hero">
-      <h1>Built for <span>Scale</span></h1>
-      <p>Modern fintech APIs for the next generation of Kenyan digital services.</p>
+      <h1>Discover <span>APIs</span></h1>
+      <p>Explore high-performance M-Pesa integration services by category.</p>
+      
       <div class="search-box">
-        <input type="text" id="apiSearch" placeholder="Search documentation (e.g. STK Push)...">
+        <input type="text" id="apiSearch" placeholder="Search for an API (e.g. STK Push)...">
+      </div>
+
+      <div class="filter-tabs">
+        <div class="tab active" onclick="filterCards('all')">All</div>
+        <div class="tab" onclick="filterCards('Security')">Security</div>
+        <div class="tab" onclick="filterCards('Payments')">Payments</div>
+        <div class="tab" onclick="filterCards('Guides')">Guides</div>
       </div>
     </section>
 
     <div class="container">
-      <div class="grid">
-        <div class="card" onclick="openDocs('Guides')">
+      <div class="grid" id="apiGrid">
+        <div class="card" data-category="Guides" onclick="openDocs('Guides')">
           <div class="icon-circle">📖</div>
-          <h3>Quick Start</h3>
-          <p>Everything you need to set up your environment and start making calls.</p>
-          <div class="tag-row"><span class="chip">Guides</span></div>
+          <h3>Getting Started</h3>
+          <p>Learn how to set up your environment, whitelist IPs, and start accepting payments.</p>
+          <div class="tag-row"><span class="chip">Documentation</span></div>
         </div>
 
-        <div class="card" onclick="openDocs('Payments')">
+        <div class="card" data-category="Security" onclick="openDocs('Security')">
+          <div class="icon-circle">🔒</div>
+          <h3>Authorization</h3>
+          <p>Generate time-bound OAuth tokens to secure your XecoFlow API requests.</p>
+          <div class="tag-row"><span class="chip">Security</span></div>
+        </div>
+
+        <div class="card" data-category="Payments" onclick="openDocs('Payments')">
           <div class="icon-circle">📲</div>
           <h3>Lipa Na M-Pesa</h3>
-          <p>Integrate automated STK Push prompts directly into your checkout flow.</p>
-          <div class="tag-row"><span class="chip">Payments</span><span class="chip" style="color: #10b981;">Active</span></div>
-        </div>
-
-        <div class="card" onclick="openDocs('Security')">
-          <div class="icon-circle">🔒</div>
-          <h3>Auth & Security</h3>
-          <p>Secure your requests using OAuth 2.0 and Xeco Sentinel signatures.</p>
-          <div class="tag-row"><span class="chip">Security</span></div>
+          <p>Trigger automated STK Push prompts directly to customer handsets for faster checkout.</p>
+          <div class="tag-row"><span class="chip">Payments</span><span class="chip" style="color:var(--xeco-green)">Active</span></div>
         </div>
       </div>
     </div>
   </div>
 
   <div id="docs-view">
-    <button class="back-btn" onclick="closeDocs()">← Back to Portal</button>
+    <div class="back-nav">
+      <button class="back-btn" onclick="closeDocs()">← Back to Portal</button>
+      <span style="margin-left: 20px; font-weight: 600; color: var(--text-muted);">XecoFlow API Documentation</span>
+    </div>
     <div id="swagger-ui"></div>
   </div>
 
   <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
   <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-standalone-preset.js"></script>
   <script>
-    // Modern Search Logic
+    // Search Functionality
     document.getElementById('apiSearch').addEventListener('input', (e) => {
       const term = e.target.value.toLowerCase();
-      const cards = document.querySelectorAll('.card');
-      cards.forEach(card => {
-        const text = card.innerText.toLowerCase();
-        card.style.display = text.includes(term) ? 'block' : 'none';
+      document.querySelectorAll('.card').forEach(card => {
+        const matches = card.innerText.toLowerCase().includes(term);
+        card.style.display = matches ? 'flex' : 'none';
       });
     });
 
-    function openDocs(filterTag = '') {
+    // Category Filter Functionality
+    function filterCards(category) {
+      // Update Tab UI
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+
+      // Filter Cards
+      document.querySelectorAll('.card').forEach(card => {
+        if (category === 'all' || card.getAttribute('data-category') === category) {
+          card.style.display = 'flex';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function openDocs(filterTag) {
       document.getElementById('main-portal').style.display = 'none';
       document.getElementById('docs-view').style.display = 'block';
-      
+      window.scrollTo(0, 0);
+
       window.ui = SwaggerUIBundle({
         url: 'openapi.yaml',
         dom_id: '#swagger-ui',
         deepLinking: true,
-        filter: filterTag, // Automatically filters to the clicked category
+        filter: filterTag,
         presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
         layout: "BaseLayout",
         defaultModelsExpandDepth: -1,

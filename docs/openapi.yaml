@@ -1,15 +1,35 @@
 openapi: 3.0.0
 info:
   title: XecoFlow API Gateway
+  description: |
+    Welcome to the XecoFlow Developer Hub. 
+    We provide high-performance RESTful APIs for M-Pesa integrations, 
+    including STK Push, C2B, and B2C services.
   version: 1.0.0
 
 servers:
   - url: https://xecoflow.onrender.com/api/v1
+    description: Production Server
 
 paths:
-  /payments/stkpush:
-    $ref: './paths/stkpush.yaml'
+  # New section for the documentation content
+  /guides/getting-started:
+    $ref: './paths/getting-started.yaml'
+    
+  # Existing API endpoints
   /auth/token:
     $ref: './paths/auth.yaml'
+    
+  /payments/stkpush:
+    $ref: './paths/stkpush.yaml'
+    
   /payments/status/{checkoutId}:
     $ref: './paths/status.yaml'
+
+tags:
+  - name: Guides
+    description: Integration tutorials and environment setup
+  - name: Security
+    description: Authentication and Authorization
+  - name: Payments
+    description: M-Pesa STK Push and Transaction Status
