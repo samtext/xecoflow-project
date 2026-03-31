@@ -132,7 +132,20 @@
         dom_id: '#swagger-ui',
         deepLinking: true,
         filter: filterTag,
-        presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+        presets: [
+          SwaggerUIBundle.presets.apis, 
+          SwaggerUIStandalonePreset
+        ],
+        plugins: [
+          function() {
+            return {
+              components: {
+                InfoContainer: () => null,    // Hides the Title/Version header
+                SchemesContainer: () => null // Hides the Server Selector
+              }
+            }
+          }
+        ],
         layout: "BaseLayout",
         defaultModelsExpandDepth: -1,
       });

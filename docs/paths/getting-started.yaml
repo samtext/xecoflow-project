@@ -17,36 +17,36 @@ get:
     ---
 
     ### Introduction
-    Welcome to XecoFlow APIs.
-    We believe in investing in the future, creating technologies that positively impact society, and transforming lives. With more innovators emerging daily, we aim to aid our partners in achieving their business goals through encouraging platforms.
+    Welcome to XecoFlow APIs. We believe in investing in the future and creating technologies that positively impact society.
     
-    In this release, we provide API endpoints for accessing M-Pesa services, including STK Push and Payment processing. Our APIs are RESTful, using HTTP verbs (GET and POST) with JSON-encoded request parameters and responses, including errors.
-    Our APIs comply with HTTP status codes as defined in RFC 2616. You can invoke our API endpoints using REST clients like Postman or command-line tools like Curl and Node.js.
+    In this release, we provide API endpoints for accessing M-Pesa services, including STK Push and Transaction Status. Our APIs are RESTful, using standard HTTP verbs (GET and POST) with JSON-encoded parameters.
 
     ### Terminologies
     * **M-PESA**: A mobile money transfer service in Kenya for storing and transferring money via mobile phones.
-    * **Xeco Sentinel**: Our advanced security layer managing Request Integrity (HMAC-SHA256) and Replay Protection.
-    * **Short Code**: A unique number for receiving customer payments (Pay Bill, Buy Goods, or Till Number).
+    * **Xeco Sentinel**: The security gateway handling HMAC signatures and request integrity.
+    * **Short Code**: A unique number for receiving customer payments.
         * **Pay Bill**: Collects money regularly from customers.
     * **Command IDs**: Unique commands specifying transaction types.
         * **Business Payment**: Sends money to registered M-Pesa customers.
-        * **Promotion Payment**: Sends promotional payments to registered M-Pesa customers with congratulatory messages.
 
-    ---
-
-    ### 🛡️ Request Integrity (Signature Guide)
-    To prevent **"Invalid signature"** errors, use this logic:
-    1. **Key**: Your private `Xeco-Secret-Key`.
-    2. **Algorithm**: HMAC-SHA256.
-    3. **Header**: Pass the result in `X-Xeco-Signature`.
+    ### 🛡️ Request Integrity (HMAC-SHA256)
+    To resolve `Invalid signature` errors, the request body must be signed with your **Secret Key**.
 
     ```javascript
     const crypto = require('crypto');
+    const secret = 'YOUR_XECO_SECRET_KEY';
+    const payload = { amount: "10", phoneNumber: "254..." };
+
     const signature = crypto
-      .createHmac('sha256', SECRET)
+      .createHmac('sha256', secret)
       .update(JSON.stringify(payload))
       .digest('hex');
     ```
+
+    ### IP Whitelisting
+    Allow traffic from these gateways on your server:
+    * `196.201.214.200`
+    * `196.201.214.206`
   responses:
     '200':
       description: Guide loaded successfully.
