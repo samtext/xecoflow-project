@@ -1,0 +1,15 @@
+post:
+  summary: Initiate M-Pesa STK Push
+  tags: [Payments]
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            phone: { type: string, example: "254700000000" }
+            amount: { type: number, example: 10 }
+  responses:
+    '200':
+      description: Success

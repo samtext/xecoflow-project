@@ -1,0 +1,6 @@
+get:
+  summary: Generate Access Token
+  tags: [Security]
+  responses:
+    '200':
+      description: Returns JWT Token
