@@ -1,62 +1,49 @@
 get:
-  summary: XecoFlow Integration Guide
+  summary: Getting Started
   tags: [Guides]
   description: |
-    ## Welcome to XecoFlow
-    XecoFlow is a high-performance API gateway designed to simplify M-Pesa integrations for Kenyan developers.
+    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+      <div style="width: 48px; height: 48px; border-radius: 50%; border: 1px solid #e0f2fe; display: flex; align-items: center; justify-content: center; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">🧩</div>
+      <div>
+        <h2 style="margin: 0; font-size: 1.5rem; font-weight: 700;">Getting Started</h2>
+        <p style="margin: 0; font-size: 0.85rem; color: #6b7280;">By XecoFlow</p>
+      </div>
+    </div>
+
+    Learn how to set up and integrate XecoFlow APIs into your application and start accepting M-Pesa payments today.
+
+    ---
+
+    ### Introduction
+    Welcome to XecoFlow APIs. We believe in providing robust financial infrastructure that positively impacts society and transforms lives.
     
-    ### 🛡️ 1. Xeco Sentinel Security (Fixing Invalid Signatures)
-    To ensure request integrity, every API call must be signed using **HMAC-SHA256**. This prevents the "Request integrity check failed" error.
+    In this release, we provide RESTful endpoints for accessing M-Pesa services, including STK Push (Lipa Na M-Pesa). Our APIs use standard HTTP verbs (GET and POST) with JSON-encoded parameters and responses. You can invoke our endpoints using REST clients like Postman or command-line tools like Curl and Node.js.
+
+    ### Terminologies
+    * **M-PESA**: A mobile money transfer service in Kenya for storing and transferring money via mobile phones.
+    * **Xeco Sentinel**: Our advanced security layer that handles Request Integrity and Replay Protection.
+    * **Short Code**: A unique number for receiving customer payments (Pay Bill, Buy Goods, or Till Number).
+    * **Callback URL**: The "Webhook" on your server where XecoFlow sends final payment results.
+
+    ### 🛡️ Request Integrity (Fixing Signature Errors)
+    To prevent the **"Invalid signature"** error, all requests must be signed using **HMAC-SHA256**.
     
-    #### **Generating the Signature (Node.js)**
+    1. **Secret Key**: Use your private `Xeco-Secret-Key`.
+    2. **Payload**: Use the raw stringified JSON body of your request.
+    3. **Header**: Pass the result in the `X-Xeco-Signature` header.
+
     ```javascript
     const crypto = require('crypto');
-    
-    // Use your Merchant Secret Key from the Xeco Dashboard
-    const XECO_SECRET = 'your_merchant_secret_key'; 
-    const payload = {
-        amount: "10",
-        phoneNumber: "254712345678",
-        accountReference: "XecoPay_01"
-    };
-
     const signature = crypto
-        .createHmac('sha256', XECO_SECRET)
-        .update(JSON.stringify(payload))
-        .digest('hex');
-
-    console.log('X-Xeco-Signature:', signature);
+      .createHmac('sha256', XECO_SECRET)
+      .update(JSON.stringify(payload))
+      .digest('hex');
     ```
 
-    ### 2. Core Terminologies
-    * **Xeco Sentinel:** Our security layer that handles HMAC signatures and OAuth 2.0 authentication.
-    * **STK Push (Lipa Na M-Pesa):** Instant payment prompts sent to a user's phone.
-    * **Callback URL:** The "Webhook" on your server where XecoFlow sends payment results.
-    
-    ### 3. Testing on Localhost
-    Since M-Pesa needs to "talk" to your computer, you must use a tunneling service.
-    * **Ngrok:** `ngrok http 5000`
-    * **LocalTunnel:** `lt --port 5000`
-    
-    ### 4. Security Credentials (B2C & Reversals)
-    To generate your `SecurityCredential`:
-    1. Get the **Xeco Public Key** from your dashboard.
-    2. Encrypt your **Initiator Password** using the RSA algorithm with PKCS#1.5 padding.
-    3. Base64 encode the result.
-    
-    ### 5. IP Whitelisting
-    Ensure your server accepts traffic from these XecoFlow/Safaricom Gateway IPs:
+    ### IP Whitelisting
+    Ensure your server accepts traffic from these gateway IPs:
     * `196.201.214.200`
     * `196.201.214.206`
-    * `196.201.213.114`
-    * `196.201.214.207`
-    * `196.201.214.208`
-    
-    ### 6. Asynchronous Logic
-    XecoFlow operates asynchronously to ensure high performance. 
-    * **Step 1:** You send a request to XecoFlow.
-    * **Step 2:** We send back a `CheckoutID` immediately.
-    * **Step 3:** Once the user enters their PIN, we POST the result to your **CallbackURL**.
   responses:
     '200':
       description: Guide loaded successfully.
