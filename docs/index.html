@@ -3,192 +3,192 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>XecoFlow | Developer Portal</title>
+  <title>XecoFlow | API Hub</title>
   
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
+  
   <style>
     :root {
-      --primary-green: #008a00; /* Safaricom Green style */
-      --text-main: #333;
-      --bg-light: #f8f9fa;
+      --xeco-blue: #0ea5e9;
+      --xeco-dark: #0f172a;
+      --card-bg: #ffffff;
+      --text-muted: #64748b;
     }
 
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: white;
-      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #f8fafc;
+      color: var(--xeco-dark);
     }
 
-    /* Header Section */
+    /* Modern Header */
+    .nav {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .logo { font-weight: 800; font-size: 1.5rem; color: var(--xeco-dark); letter-spacing: -1px; }
+    .logo span { color: var(--xeco-blue); }
+
+    /* Hero Section */
     .hero {
+      padding: 80px 20px;
       text-align: center;
-      padding: 60px 20px;
+      background: radial-gradient(circle at top right, #e0f2fe, transparent);
     }
 
-    .hero h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
+    .hero h1 { font-size: 3.5rem; margin-bottom: 15px; letter-spacing: -2px; }
+    .hero p { color: var(--text-muted); font-size: 1.2rem; max-width: 600px; margin: 0 auto 40px auto; }
 
-    .hero h1 span { color: var(--primary-green); }
-
-    .search-container {
-      max-width: 800px;
-      margin: 30px auto;
+    /* Search Bar */
+    .search-box {
+      max-width: 600px;
+      margin: 0 auto;
       position: relative;
     }
 
-    .search-bar {
+    .search-box input {
       width: 100%;
-      padding: 15px 25px;
-      border-radius: 8px;
-      border: 1px solid #ddd;
-      font-size: 16px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-    }
-
-    /* Tabs/Filters */
-    .tabs {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      margin-bottom: 40px;
-    }
-
-    .tab {
-      padding: 10px 25px;
-      border-radius: 5px;
-      background: #f1f1f1;
-      cursor: pointer;
-      font-weight: 600;
+      padding: 18px 25px;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+      font-size: 1rem;
+      outline: none;
       transition: 0.3s;
     }
 
-    .tab.active {
-      background: var(--primary-green);
-      color: white;
-    }
+    .search-box input:focus { border-color: var(--xeco-blue); box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1); }
 
-    /* Grid Layout */
-    .api-grid {
+    /* API Grid */
+    .container { max-width: 1200px; margin: -40px auto 100px auto; padding: 0 20px; }
+    
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 25px;
-      max-width: 1100px;
-      margin: 0 auto 60px auto;
-      padding: 0 20px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
     }
 
-    .api-card {
-      border: 1px solid #eee;
-      border-radius: 12px;
-      padding: 30px;
-      transition: transform 0.3s, box-shadow 0.3s;
+    .card {
+      background: white;
+      padding: 40px;
+      border-radius: 24px;
+      border: 1px solid #f1f5f9;
+      transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       cursor: pointer;
-      position: relative;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
     }
 
-    .api-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+      border-color: var(--xeco-blue);
     }
 
-    .icon-box {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: #e6f4ea;
+    .icon-circle {
+      width: 60px;
+      height: 60px;
+      background: #f0f9ff;
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
+      font-size: 1.5rem;
+      margin-bottom: 24px;
+      color: var(--xeco-blue);
     }
 
-    .api-card h3 { margin: 0 0 10px 0; font-size: 20px; }
-    .api-card p { color: #666; font-size: 14px; line-height: 1.6; }
+    .card h3 { margin: 0 0 12px 0; font-size: 1.25rem; font-weight: 700; }
+    .card p { color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; margin-bottom: 20px; }
 
-    .tag {
-      display: inline-block;
-      margin-top: 20px;
-      padding: 5px 15px;
-      border-radius: 20px;
-      font-size: 12px;
-      font-weight: 600;
-      border: 1px solid #ddd;
+    .tag-row { display: flex; gap: 8px; }
+    .chip { 
+      padding: 4px 12px; 
+      border-radius: 99px; 
+      font-size: 0.7rem; 
+      font-weight: 700; 
+      text-transform: uppercase; 
+      background: #f1f5f9;
+      color: #475569;
     }
 
-    .tag.payments { color: #007bff; border-color: #007bff; }
-    .tag.security { color: #28a745; border-color: #28a745; }
-
-    /* Hidden Swagger Container */
-    #swagger-ui { display: none; padding: 20px; }
+    /* Swagger Modal Style */
+    #docs-view { display: none; background: white; min-height: 100vh; position: relative; z-index: 100; }
+    .back-btn { padding: 10px 20px; margin: 20px; cursor: pointer; border: none; background: var(--xeco-dark); color: white; border-radius: 8px; }
   </style>
 </head>
 <body>
 
-  <div id="portal-view">
-    <section class="hero">
-      <h1>Discover <span>APIs</span></h1>
-      <p>Explore our wide range of APIs by category</p>
+  <div id="main-portal">
+    <nav class="nav">
+      <div class="logo">XECO<span>FLOW</span></div>
+      <div style="font-size: 0.9rem; color: var(--text-muted);">v1.0 Docs</div>
+    </nav>
 
-      <div class="search-container">
-        <input type="text" class="search-bar" placeholder="Search for APIs...">
+    <section class="hero">
+      <h1>Built for <span>Scale</span></h1>
+      <p>Modern fintech APIs for the next generation of Kenyan digital services.</p>
+      <div class="search-box">
+        <input type="text" placeholder="Search documentation (e.g. STK Push)...">
       </div>
     </section>
 
-    <div class="tabs">
-      <div class="tab active">All</div>
-      <div class="tab">Security</div>
-      <div class="tab">Payments</div>
-      <div class="tab">Disbursement</div>
-    </div>
+    <div class="container">
+      <div class="grid">
+        <div class="card" onclick="openDocs()">
+          <div class="icon-circle">📖</div>
+          <h3>Quick Start</h3>
+          <p>Everything you need to set up your environment and start making calls.</p>
+          <div class="tag-row"><span class="chip">Guides</span></div>
+        </div>
 
-    <div class="api-grid">
-      <div class="api-card" onclick="showSwagger()">
-        <div class="icon-box">🚀</div>
-        <h3>Getting Started</h3>
-        <p>Learn how to set up and integrate XecoFlow APIs into your application.</p>
-        <span class="tag">Experience</span>
-      </div>
+        <div class="card" onclick="openDocs()">
+          <div class="icon-circle">📲</div>
+          <h3>Lipa Na M-Pesa</h3>
+          <p>Integrate automated STK Push prompts directly into your checkout flow.</p>
+          <div class="tag-row"><span class="chip">Payments</span><span class="chip" style="color: #10b981;">Active</span></div>
+        </div>
 
-      <div class="api-card" onclick="showSwagger()">
-        <div class="icon-box">🛡️</div>
-        <h3>Authorization</h3>
-        <p>Gives you a time bound access token to call allowed XecoFlow APIs.</p>
-        <span class="tag security">Security</span>
-      </div>
-
-      <div class="api-card" onclick="showSwagger()">
-        <div class="icon-box">💸</div>
-        <h3>STK Push</h3>
-        <p>Trigger Lipa Na M-PESA prompts directly to user handsets.</p>
-        <span class="tag payments">Payments</span>
+        <div class="card" onclick="openDocs()">
+          <div class="icon-circle">🔒</div>
+          <h3>Auth & Security</h3>
+          <p>Secure your requests using OAuth 2.0 and Xeco Sentinel signatures.</p>
+          <div class="tag-row"><span class="chip">Security</span></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div id="swagger-ui">
-    <button onclick="hideSwagger()" style="margin-bottom: 20px; padding: 10px; cursor: pointer;">← Back to Portal</button>
+  <div id="docs-view">
+    <button class="back-btn" onclick="closeDocs()">← Back to Portal</button>
+    <div id="swagger-ui"></div>
   </div>
 
   <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
+  <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-standalone-preset.js"></script>
   <script>
-    function showSwagger() {
-      document.getElementById('portal-view').style.display = 'none';
-      document.getElementById('swagger-ui').style.display = 'block';
+    function openDocs() {
+      document.getElementById('main-portal').style.display = 'none';
+      document.getElementById('docs-view').style.display = 'block';
       
       window.ui = SwaggerUIBundle({
         url: 'openapi.yaml',
         dom_id: '#swagger-ui',
         deepLinking: true,
-        presets: [SwaggerUIBundle.presets.apis],
+        presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+        layout: "BaseLayout",
       });
     }
 
-    function hideSwagger() {
-      document.getElementById('portal-view').style.display = 'block';
-      document.getElementById('swagger-ui').style.display = 'none';
+    function closeDocs() {
+      document.getElementById('main-portal').style.display = 'block';
+      document.getElementById('docs-view').style.display = 'none';
     }
   </script>
 </body>
