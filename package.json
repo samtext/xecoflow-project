@@ -4,7 +4,7 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-  "start": "echo 'Documentation Only Mode'",
+  "start": "echo 'Docs Mode Active'",
   "dev": "nodemon server.js"
   },
   "dependencies": {
