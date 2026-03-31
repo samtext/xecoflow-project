@@ -1,0 +1,91 @@
+openapi: 3.0.0
+info:
+  title: XecoFlow API Gateway
+  description: |
+    Welcome to the **XecoFlow V1 API**. 
+    
+    To use these endpoints, you must:
+    1. Obtain an **Access Token** via OAuth.
+    2. Include the **Sentinel Security Headers** (X-Timestamp, X-Nonce, X-Signature).
+  version: 1.0.0
+  contact:
+    name: Joan - Xeco Developers
+    url: https://xecoflow.onrender.com
+
+servers:
+  - url: https://xecoflow.onrender.com/api/v1
+    description: Production Server
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+paths:
+  /payments/stkpush:
+    post:
+      summary: Initiate M-Pesa STK Push
+      tags: [Payments]
+      security:
+        - BearerAuth: []
+      parameters:
+        - name: X-Timestamp
+          in: header
+          required: true
+          schema: { type: string }
+        - name: X-Nonce
+          in: header
+          required: true
+          schema: { type: string }
+        - name: X-Signature
+          in: header
+          required: true
+          schema: { type: string }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone: { type: string, example: "254708050827" }
+                amount: { type: number, example: 10 }
+                reference: { type: string, example: "Xeco_Order_001" }
+                socketId: { type: string, example: "socket_abc_123" }
+      responses:
+        '200':
+          description: Request Accepted
+          content:
+            application/json:
+              example: { success: true, message: "Prompt sent to phone" }
+
+  /status/{checkoutId}:
+    get:
+      summary: Check Payment Status
+      tags: [Queries]
+      parameters:
+        - name: checkoutId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Status found
+          content:
+            application/json:
+              example: { success: true, status: "COMPLETED", receipt: "UCL2QA23GS" }
+
+  /transaction/{transactionId}:
+    get:
+      summary: Query by Receipt Number
+      tags: [Queries]
+      parameters:
+        - name: transactionId
+          in: path
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Transaction details found
