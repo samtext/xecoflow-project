@@ -3,10 +3,12 @@ get:
   tags: [Guides]
   description: |
     <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
-      <div style="width: 48px; height: 48px; border-radius: 50%; border: 1px solid #e0f2fe; display: flex; align-items: center; justify-content: center; background: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">🧩</div>
+      <div style="width: 56px; height: 56px; border-radius: 50%; border: 1px solid #e0f2fe; display: flex; align-items: center; justify-content: center; background: #fff; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+        <img src="https://img.icons8.com/color/48/settings-shared.png" alt="icon" style="width: 30px;"/>
+      </div>
       <div>
-        <h2 style="margin: 0; font-size: 1.5rem; font-weight: 700;">Getting Started</h2>
-        <p style="margin: 0; font-size: 0.85rem; color: #6b7280;">By XecoFlow</p>
+        <h1 style="margin: 0; font-size: 1.75rem; font-weight: 700; color: #333;">Getting Started</h1>
+        <p style="margin: 0; font-size: 0.9rem; color: #6b7280;">By XecoFlow</p>
       </div>
     </div>
 
@@ -15,35 +17,36 @@ get:
     ---
 
     ### Introduction
-    Welcome to XecoFlow APIs. We believe in providing robust financial infrastructure that positively impacts society and transforms lives.
+    Welcome to XecoFlow APIs.
+    We believe in investing in the future, creating technologies that positively impact society, and transforming lives. With more innovators emerging daily, we aim to aid our partners in achieving their business goals through encouraging platforms.
     
-    In this release, we provide RESTful endpoints for accessing M-Pesa services, including STK Push (Lipa Na M-Pesa). Our APIs use standard HTTP verbs (GET and POST) with JSON-encoded parameters and responses. You can invoke our endpoints using REST clients like Postman or command-line tools like Curl and Node.js.
+    In this release, we provide API endpoints for accessing M-Pesa services, including STK Push and Payment processing. Our APIs are RESTful, using HTTP verbs (GET and POST) with JSON-encoded request parameters and responses, including errors.
+    Our APIs comply with HTTP status codes as defined in RFC 2616. You can invoke our API endpoints using REST clients like Postman or command-line tools like Curl and Node.js.
 
     ### Terminologies
     * **M-PESA**: A mobile money transfer service in Kenya for storing and transferring money via mobile phones.
-    * **Xeco Sentinel**: Our advanced security layer that handles Request Integrity and Replay Protection.
+    * **Xeco Sentinel**: Our advanced security layer managing Request Integrity (HMAC-SHA256) and Replay Protection.
     * **Short Code**: A unique number for receiving customer payments (Pay Bill, Buy Goods, or Till Number).
-    * **Callback URL**: The "Webhook" on your server where XecoFlow sends final payment results.
+        * **Pay Bill**: Collects money regularly from customers.
+    * **Command IDs**: Unique commands specifying transaction types.
+        * **Business Payment**: Sends money to registered M-Pesa customers.
+        * **Promotion Payment**: Sends promotional payments to registered M-Pesa customers with congratulatory messages.
 
-    ### 🛡️ Request Integrity (Fixing Signature Errors)
-    To prevent the **"Invalid signature"** error, all requests must be signed using **HMAC-SHA256**.
-    
-    1. **Secret Key**: Use your private `Xeco-Secret-Key`.
-    2. **Payload**: Use the raw stringified JSON body of your request.
-    3. **Header**: Pass the result in the `X-Xeco-Signature` header.
+    ---
+
+    ### 🛡️ Request Integrity (Signature Guide)
+    To prevent **"Invalid signature"** errors, use this logic:
+    1. **Key**: Your private `Xeco-Secret-Key`.
+    2. **Algorithm**: HMAC-SHA256.
+    3. **Header**: Pass the result in `X-Xeco-Signature`.
 
     ```javascript
     const crypto = require('crypto');
     const signature = crypto
-      .createHmac('sha256', XECO_SECRET)
+      .createHmac('sha256', SECRET)
       .update(JSON.stringify(payload))
       .digest('hex');
     ```
-
-    ### IP Whitelisting
-    Ensure your server accepts traffic from these gateway IPs:
-    * `196.201.214.200`
-    * `196.201.214.206`
   responses:
     '200':
       description: Guide loaded successfully.
