@@ -1,7 +1,10 @@
 {
   "version": 2,
   "public": true,
+  "cleanUrls": true,
   "rewrites": [
-    { "source": "/(.*)", "destination": "/docs/$1" }
+    { "source": "/", "destination": "/docs/index.html" },
+    { "source": "/openapi.yaml", "destination": "/docs/openapi.yaml" },
+    { "source": "/(.*)", "destination": "/docs/index.html" }
   ]
 }

@@ -3,32 +3,72 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>XecoFlow API | Developer Documentation</title>
+  <title>XecoFlow | Developer Hub</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
-  <link rel="icon" type="image/png" href="https://xeco.co.ke/favicon.png" />
+  
   <style>
-    html { box-sizing: border-box; overflow: -moz-scrollbars-vertical; overflow-y: scroll; }
-    *, *:before, *:after { box-sizing: inherit; }
-    body { margin: 0; background: #fafafa; }
-    .topbar { background-color: #1b1b1b; padding: 10px 0; text-align: center; }
-    .topbar img { height: 40px; }
+    /* Clean Base Styles */
+    body {
+      margin: 0;
+      background: #ffffff;
+      font-family: 'Inter', sans-serif !important;
+    }
+
+    /* Modern Dark Header */
+    .topbar {
+      background: #0f172a; /* Deep Navy */
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    }
+
+    .brand-name {
+      color: #38bdf8; /* Sky Blue */
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: -0.5px;
+    }
+
+    .badge {
+      background: #1e293b;
+      color: #94a3b8;
+      padding: 4px 12px;
+      border-radius: 99px;
+      font-size: 0.75rem;
+      border: 1px solid #334155;
+    }
+
+    /* Customizing Swagger UI Colors */
+    .swagger-ui .topbar { display: none; } /* Hide default swagger bar */
+    .swagger-ui .info .title { color: #0f172a; font-weight: 700; }
+    .swagger-ui .opblock.opblock-post { background: rgba(56, 189, 248, 0.05); border-color: #38bdf8; }
+    .swagger-ui .opblock.opblock-post .opblock-summary-method { background: #38bdf8; }
   </style>
 </head>
 <body>
+
   <div class="topbar">
-    <h2 style="color: white; margin: 0; font-family: sans-serif;">XecoFlow Documentation</h2>
+    <div class="brand-name">XECO<span style="color: white;">FLOW</span></div>
+    <div class="badge">API v1.0.0 • Production</div>
   </div>
+
   <div id="swagger-ui"></div>
+
   <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js"></script>
   <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-standalone-preset.js"></script>
   <script>
     window.onload = () => {
       window.ui = SwaggerUIBundle({
-        url: 'openapi.yaml', // Points to your instructions file
+        url: 'openapi.yaml',
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
         layout: "BaseLayout",
+        defaultModelsExpandDepth: -1, // Hides the "Models" section at the bottom for a cleaner look
       });
     };
   </script>
